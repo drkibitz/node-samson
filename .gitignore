@@ -1,0 +1,19 @@
+# For a good example of this file
+# http://help.github.com/ignore-files/
+
+# REPO SPECIFIC
+######################
+
+# Development env files
+######################
+*.swp
+
+# OS generated files #
+######################
+.DS_Store*
+.fseventsd
+.TemporaryItems
+.Trashes
+ehthumbs.db
+Icon?
+Thumbs.db

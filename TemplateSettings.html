@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: TemplateSettings</title>
+    
+    <script src="http://shjs.sourceforge.net/sh_main.min.js"> </script>
+    <script src="http://shjs.sourceforge.net/lang/sh_javascript.min.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/node-dark.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Class: TemplateSettings</h1>
+    
+    
+
+
+
+<section>
+    
+<header>
+    <h2>
+    TemplateSettings
+    </h2>
+    
+</header>  
+
+<article>
+    <div class="container-overview">
+    
+    
+    
+        
+<dt>
+    <h4 class="name" id="TemplateSettings"><span class="type-signature"></span>new TemplateSettings</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Object that contains settings that are meant to be sent
+to the module:dot.template method. On instantiation, RegExp objects
+are created that are specific to its own <a href="TemplateSettings.html#tagStart">TemplateSettings#tagStart</a>
+and <a href="TemplateSettings.html#tagEnd">TemplateSettings#tagEnd</a> properties.
+    </div>
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>tagStart</code></td>
+            
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Value to set <a href="TemplateSettings.html#tagStart">TemplateSettings#tagStart</a> property.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>tagEnd</code></td>
+            
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Value to set <a href="TemplateSettings.html#tagEnd">TemplateSettings#tagEnd</a> property.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+        <h5 class="subsection-title">Properties:</h5>
+        
+        <dl>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>evaluate</code></td>
+            
+            
+            <td class="type">
+            
+                        RegExp
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Created from module:dot.templateSettings.evaluate</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>interpolate</code></td>
+            
+            
+            <td class="type">
+            
+                        RegExp
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Created from module:dot.templateSettings.interpolate</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>encode</code></td>
+            
+            
+            <td class="type">
+            
+                        RegExp
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Created from module:dot.templateSettings.encode</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>use</code></td>
+            
+            
+            <td class="type">
+            
+                        RegExp
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Created from module:dot.templateSettings.use</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>define</code></td>
+            
+            
+            <td class="type">
+            
+                        RegExp
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Created from module:dot.templateSettings.define</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>conditional</code></td>
+            
+            
+            <td class="type">
+            
+                        RegExp
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Created from module:dot.templateSettings.conditional</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>iterate</code></td>
+            
+            
+            <td class="type">
+            
+                        RegExp
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Created from module:dot.templateSettings.iterate</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>brokenTag</code></td>
+            
+            
+            <td class="type">
+            
+                        RegExp
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Not specfied in module:dot.templateSettings
+because it is not a complete tag (hence the name... `brokenTag`).</td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+        
+    
+        
+	
+	
+	
+	<dt class="tag-since">Since:</dt>
+	<dd class="tag-since"><ul class="dummy"><li>1.0</dd>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>TemplateSettings.js, line 144</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+    
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Namespaces</h3>
+        
+        <dl>
+            <dt><a href="namespaces.html#TemplateSettings.validationCode"><a href="TemplateSettings.validationCode.html">validationCode</a></a></dt>
+            <dd></dd>
+        </dl>
+    
+    
+    
+        <h3 class="subsection-title">Members</h3>
+        
+        <dl>
+            
+<dt>
+    <h4 class="name" id="filterVarname"><span class="type-signature"></span>filterVarname<span class="type-signature"> :Function</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>This function is invoked when accessing the <a href="TemplateSettings.html#varname">TemplateSettings#varname</a> property.</p>
+<pre>
+    console.log(settings.varname) // Outputs 'it'
+    settings.filterVarname = function (varname) { return 'newvarname'; };
+    console.log(settings.varname) // Outputs 'newvarname'
+</pre>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	<dt class="tag-since">Since:</dt>
+	<dd class="tag-since"><ul class="dummy"><li>1.0</dd>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-default">Default Value:</dt>
+	<dd class="tag-default"><ul class="dummy"><li>null</li></ul></dd>
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>TemplateSettings.js, line 182</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="previousMatches"><span class="type-signature"></span>previousMatches<span class="type-signature"> :Array</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The previous matches returned when validating conditionals in <a href="TemplateSettings.html#validate">TemplateSettings#validate</a>.
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	<dt class="tag-since">Since:</dt>
+	<dd class="tag-since"><ul class="dummy"><li>1.0</dd>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-default">Default Value:</dt>
+	<dd class="tag-default"><ul class="dummy"><li>null</li></ul></dd>
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>TemplateSettings.js, line 189</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="strip"><span class="type-signature"></span>strip<span class="type-signature"> :boolean</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Passed directly to module:dot.template method.
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	<dt class="tag-since">Since:</dt>
+	<dd class="tag-since"><ul class="dummy"><li>1.0</dd>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-default">Default Value:</dt>
+	<dd class="tag-default"><ul class="dummy"><li>false</li></ul></dd>
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>TemplateSettings.js, line 218</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="tagEnd"><span class="type-signature">&lt;readonly> </span>tagEnd<span class="type-signature"> :string</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The end of the template tag which RegExp objects in this instance are created for.
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	<dt class="tag-since">Since:</dt>
+	<dd class="tag-since"><ul class="dummy"><li>1.0</dd>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>TemplateSettings.js, line 203</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="tagStart"><span class="type-signature">&lt;readonly> </span>tagStart<span class="type-signature"> :string</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The beginning of the template tag which RegExp objects in this instance are created for.
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	<dt class="tag-since">Since:</dt>
+	<dd class="tag-since"><ul class="dummy"><li>1.0</dd>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>TemplateSettings.js, line 196</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="validationCode"><span class="type-signature"></span>validationCode<span class="type-signature"> :int</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The last code returned by <a href="TemplateSettings.html#validate">TemplateSettings#validate</a>.
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	<dt class="tag-since">Since:</dt>
+	<dd class="tag-since"><ul class="dummy"><li>1.0</dd>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-default">Default Value:</dt>
+	<dd class="tag-default"><ul class="dummy"><li><a href="TemplateSettings.validationCode.html#UNVALIDATED">TemplateSettings.validationCode.UNVALIDATED</a></li></ul></dd>
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>TemplateSettings.js, line 251</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="varname"><span class="type-signature">&lt;readonly> </span>varname<span class="type-signature"> :string</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Passed directly to module:dot.template method. Accessing this
+property may invoke the optional callback <a href="TemplateSettings.html#filterVarname">TemplateSettings#filterVarname</a>.
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	<dt class="tag-since">Since:</dt>
+	<dd class="tag-since"><ul class="dummy"><li>1.0</dd>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-default">Default Value:</dt>
+	<dd class="tag-default"><ul class="dummy"><li><a href="TemplateSettings.html#varnameFiltered">TemplateSettings#varnameFiltered</a></li></ul></dd>
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>TemplateSettings.js, line 227</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="varnameFiltered"><span class="type-signature"></span>varnameFiltered<span class="type-signature"> :string|Array.&lt;string></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Cached value that is set after accessing the property <a href="TemplateSettings.html#varname">TemplateSettings#varname</a>,
+and the callback <a href="TemplateSettings.html#filterVarname">TemplateSettings#filterVarname</a> is set.
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	<dt class="tag-since">Since:</dt>
+	<dd class="tag-since"><ul class="dummy"><li>1.0</dd>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-default">Default Value:</dt>
+	<dd class="tag-default"><ul class="dummy"><li>"it"</li></ul></dd>
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>TemplateSettings.js, line 244</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+</dd>
+
+        </dl>
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl>
+            
+<dt>
+    <h4 class="name" id="destroy"><span class="type-signature"></span>destroy</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Removes all instance properties.
+    </div>
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	<dt class="tag-since">Since:</dt>
+	<dd class="tag-since"><ul class="dummy"><li>1.0</dd>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>TemplateSettings.js, line 259</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+		<span class="param-type">void</span> 
+		
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="reset"><span class="type-signature"></span>reset</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Removes properties that may have been set after instantiation.
+    </div>
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	<dt class="tag-since">Since:</dt>
+	<dd class="tag-since"><ul class="dummy"><li>1.0</dd>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>TemplateSettings.js, line 355</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    this
+</div>
+
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+		<span class="param-type">TemplateSettings</span> 
+		
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="validate"><span class="type-signature"></span>validate</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Any data that is meant to be run through module:dot.template</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	<dt class="tag-since">Since:</dt>
+	<dd class="tag-since"><ul class="dummy"><li>1.0</dd>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>TemplateSettings.js, line 276</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The current value of <a href="TemplateSettings.html#validationCode">TemplateSettings#validationCode</a>
+</div>
+
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+		<span class="param-type">int</span> 
+		
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        </dl>
+    
+    
+    
+    
+    
+</article>
+
+</section>  
+
+
+
+
+</div>
+
+<nav>
+    <h3>Modules</h3><ul><li><a href="module-bin.html">bin</a></li><li><a href="306840213c.html">node-samson/lib/main</a></li><li><a href="4e5b0a8bc6.html">node-samson/lib/Queue</a></li><li><a href="85b178dc02.html">node-samson/lib/ResourceProcessor</a></li><li><a href="72cf34ef0a.html">node-samson/lib/ResourceReader</a></li><li><a href="507bf53ef9.html">node-samson/lib/ResourceWriter</a></li><li><a href="ce42311f30.html">node-samson/lib/Samson</a></li><li><a href="4d17576eed.html">node-samson/lib/Template</a></li><li><a href="decd787ba8.html">node-samson/lib/TemplateSettings</a></li></ul><h3>Classes</h3><ul><li><a href="Queue.html">Queue</a></li><li><a href="ResourceProcessor.html">ResourceProcessor</a></li><li><a href="ResourceReader.html">ResourceReader</a></li><li><a href="ResourceWriter.html">ResourceWriter</a></li><li><a href="Samson.html">Samson</a></li><li><a href="Template.html">Template</a></li><li><a href="TemplateSettings.html">TemplateSettings</a></li></ul><h3>Namespaces</h3><ul><li><a href="ResourceProcessor.def.html">def</a></li><li><a href="ResourceReader.event.html">event</a></li><li><a href="ResourceWriter.event.html">event</a></li><li><a href="Samson.errorCode.html">errorCode</a></li><li><a href="Samson.event.html">event</a></li><li><a href="Template.settingsByType.html">settingsByType</a></li><li><a href="TemplateSettings.validationCode.html">validationCode</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/micmath/jsdoc">JSDoc 3</a> on Sun May 20 2012 00:52:48 GMT-0700 (PDT)
+</footer>
+
+<script> sh_highlightDocument(); </script>
+</body>
+</html>
