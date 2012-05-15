@@ -1,0 +1,16 @@
+
+#{build{#def.DATE}}#
+#{build{#def.ELAPSED}}#
+#{build{#def.MIMETYPE}}#
+#{build{#def.FILE}}#
+#{build{#def.INDEX}}#
+#{build{#def.TIMESTAMP}}#
+#{build{#def.BASENAME}}#
+#{build{#def.DIRNAME}}#
+#{build{=argv.RELEASE}}#
+
+REGULAR TEXT: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eget tellus nulla, nec condimentum dolor. Praesent hendrerit tincidunt orci at mattis. Nam sit amet odio purus, nec pulvinar enim. Vestibulum in mauris nibh. Nulla eu orci metus. Cras dolor urna, blandit id rhoncus nec, placerat vitae lorem. Cras fringilla ante cursus libero ultricies lacinia varius dui semper.
+
+#{build{?argv.RELEASE == 'debug'}}#
+DEBUG TEXT: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eget tellus nulla, nec condimentum dolor. Praesent hendrerit tincidunt orci at mattis. Nam sit amet odio purus, nec pulvinar enim. Vestibulum in mauris nibh. Nulla eu orci metus. Cras dolor urna, blandit id rhoncus nec, placerat vitae lorem. Cras fringilla ante cursus libero ultricies lacinia varius dui semper.
+#{build{?}}#

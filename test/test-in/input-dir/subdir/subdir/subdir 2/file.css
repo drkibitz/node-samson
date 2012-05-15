@@ -1,0 +1,17 @@
+body {
+    font-family: Helvetica;
+    size: 10px;
+}
+
+/*{build{?argv.RELEASE == 'debug'}}*/
+.debug {
+    color: red;
+    size: 20px;
+}
+/*{build{?}}*/
+
+body.ok {
+    font-family: Helvetica;
+    size: 10px;
+    /*{build{='width: 100px;'}}*/
+}

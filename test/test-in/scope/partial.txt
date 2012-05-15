@@ -1,0 +1,3 @@
+#PARTIAL FILE START
+This is a the contents of a file partial
+#PARTIAL FILE END
