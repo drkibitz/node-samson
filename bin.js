@@ -100,7 +100,7 @@ if (process.mainModule !== module) {
     // Check for version option
     } else if (argv.v) {
 
-        console.log(JSON.parse(fs.readFileSync('./package.json', 'utf8')).version);
+        console.log(Samson.getVersion());
         process.exit(0);
 
     // Really try to run it
