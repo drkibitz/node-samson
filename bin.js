@@ -136,7 +136,7 @@ if (process.mainModule !== module) {
             samson
                 .on('error', function onError(error) {
                     !argv.q && console.error(error.toString());
-                    process.exit(1);
+                    process.exit(error.hasOwnProperty('code') ? error.code : 1);
                 })
                 .on('end', function onEnd(file) {
                     !argv.q && console.log('\nCompleted successfully.\n',
