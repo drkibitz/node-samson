@@ -92,9 +92,9 @@ For a more detailed view of the defailt members of `def`, please visit http://dr
 
 Be sure to to look at:
 
-	samson
-	samson -h
-	samson --help
+    samson
+    samson -h
+    samson --help
 
 Process a single file and output to console:
 
