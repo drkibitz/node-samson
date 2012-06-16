@@ -20,11 +20,11 @@ define('testing', function () {
      */
     var testing = {};
 
-    /*{build{?argv.RELEASE == 'debug'}}*/
+    /*{?argv.RELEASE == 'debug'}*/
     array.debug = function () {
         return "OK";
     };
-    /*{build{?}}*/
+    /*{?}*/
 
     // Module provides
     return testing;

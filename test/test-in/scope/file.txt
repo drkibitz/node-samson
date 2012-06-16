@@ -1,67 +1,67 @@
 
-#{build{#def.DATE}}#
-#{build{#def.ELAPSED}}#
-#{build{#def.MIMETYPE}}#
-#{build{#def.FILE}}#
-#{build{#def.INDEX}}#
-#{build{#def.TIMESTAMP}}#
-#{build{#def.BASENAME}}#
-#{build{#def.DIRNAME}}#
+#{#def.DATE}#
+#{#def.ELAPSED}#
+#{#def.MIMETYPE}#
+#{#def.FILE}#
+#{#def.INDEX}#
+#{#def.TIMESTAMP}#
+#{#def.BASENAME}#
+#{#def.DIRNAME}#
 
-#def #{build{#Object.prototype.toString.call(def)}}#
-#{build{#JSON.stringify(def)}}#
+#def #{#Object.prototype.toString.call(def)}#
+#{#JSON.stringify(def)}#
 
-#this #{build{#this}}#
-#{buld{#JSON.stringify(this)}}#
+#this #{#this}#
+#{#JSON.stringify(this)}#
 
-=this #{build{=this}}#
-#{build{=JSON.stringify(this)}}#
+=this #{=this}#
+#{=JSON.stringify(this)}#
 
-=arguments #{build{=arguments}}#
-#{build{=JSON.stringify(arguments)}}#
+=arguments #{=arguments}#
+#{=JSON.stringify(arguments)}#
 
 TESTING defines
 
-#{build{##def.DEFINED_ONE:
+#{##def.DEFINED_ONE:
 	This is the value of partial one.
 	With multiple lines.
-	The end.#}}#
-#{build{##def.DEFINED_ONE:
-	This should overwrite anything.#}}#
-#{build{##def.DEFINED_ONE='This also should not overwrite anything.'#}}#
+	The end.#}#
+#{##def.DEFINED_ONE:
+	This should overwrite anything.#}#
+#{##def.DEFINED_ONE='This also should not overwrite anything.'#}#
 
 #def.DEFINED_ONE
-#{build{#def.DEFINED_ONE}}#
-#{build{=DEFINED_ONE}}#
+#{#def.DEFINED_ONE}#
+#{=DEFINED_ONE}#
 
-#{build{##def.DEFINED_TWO='This is the value partial two.'#}}#
+#{##def.DEFINED_TWO='This is the value partial two.'#}#
 
 #def.DEFINED_TWO
-#{build{#def.DEFINED_TWO}}#
+#{#def.DEFINED_TWO}#
 
-#{build{##def.DEFINED_THREE=def.DEFINED_TWO#}}#
+#{##def.DEFINED_THREE=def.DEFINED_TWO#}#
 
 #def.DEFINED_THREE
-#{build{#def.DEFINED_THREE}}#
+#{#def.DEFINED_THREE}#
 
-#{build{##def.DEFINED_FOUR='This is the value of partial four.'#}}#
+#{##def.DEFINED_FOUR='This is the value of partial four.'#}#
 
 #def.DEFINED_FOUR
-#{build{#def.DEFINED_FOUR}}#
+#{#def.DEFINED_FOUR}#
 
-#{build{##def.DEFINED_SIX='Test'#}}#
-#{build{##def.DEFINED_FIVE=def.DEFINED_SIX || 'This is the value of partial five.'#}}#
+#{##def.DEFINED_SIX='Test'#}#
+#{##def.DEFINED_FIVE=def.DEFINED_SIX || 'This is the value of partial five.'#}#
 
 #def.DEFINED_FIVE
-#{build{#def.DEFINED_FIVE}}#
+#{#def.DEFINED_FIVE}#
 
-#{build{##def.DEFINED_SEVEN=def.DEFINED_EIGHT || 'This is the value of partial seven.'#}}#
+#{##def.DEFINED_SEVEN=def.DEFINED_EIGHT || 'This is the value of partial seven.'#}#
 
 #def.DEFINED_SEVEN
-#{build{#def.DEFINED_SEVEN}}#
+#{#def.DEFINED_SEVEN}#
 
 
-#{build{#(global.GLOBAL_DEFINED='Testing global define value.') && ''}}#
+#{#(global.GLOBAL_DEFINED='Testing global define value.') && ''}#
 
-#{build{#def.partial('partial.txt')}}#
-#{build{#def.partial('partial.txt')}}#
+#{#def.partial('partial.txt')}#
+#{#def.partial('partial.txt')}#

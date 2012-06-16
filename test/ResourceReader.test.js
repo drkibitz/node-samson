@@ -94,10 +94,10 @@ vows.describe(basename).addBatch({
                 assert.isNotEmpty(asyncRaw);
             },
             "syncRaw.length is 3153057": function (reader, asyncRaw, syncRaw) {
-                assert.strictEqual(syncRaw.length, 3153057);
+                assert.strictEqual(syncRaw.length, 3008913);
             },
             "asyncRaw.length is 3153057": function (reader, asyncRaw, syncRaw) {
-                assert.strictEqual(asyncRaw.length, 3153057);
+                assert.strictEqual(asyncRaw.length, 3008913);
             },
             "async chunks equal sync chunks": function (reader, asyncRaw, syncRaw, chunks) {
                 chunks.forEach(function(chunk) {

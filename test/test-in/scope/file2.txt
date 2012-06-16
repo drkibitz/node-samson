@@ -1,21 +1,21 @@
 
-#{build{#def.DATE}}#
-#{build{#def.ELAPSED}}#
-#{build{#def.MIMETYPE}}#
-#{build{#def.FILE}}#
-#{build{#def.INDEX}}#
-#{build{#def.TIMESTAMP}}#
-#{build{#def.BASENAME}}#
-#{build{#def.DIRNAME}}#
+#{#def.DATE}#
+#{#def.ELAPSED}#
+#{#def.MIMETYPE}#
+#{#def.FILE}#
+#{#def.INDEX}#
+#{#def.TIMESTAMP}#
+#{#def.BASENAME}#
+#{#def.DIRNAME}#
 
 #def.DEFINED_ONE
-#{build{#def.DEFINED_ONE}}#
+#{#def.DEFINED_ONE}#
 
 #def.DEFINED_TWO
-#{build{#def.DEFINED_TWO}}#
+#{#def.DEFINED_TWO}#
 
 #def.DEFINED_THREE
-#{build{#def.DEFINED_THREE}}#
+#{#def.DEFINED_THREE}#
 
-#{build{#def.partial('partial.txt')}}#
-#{build{#def.partial('partial.txt')}}#
+#{#def.partial('partial.txt')}#
+#{#def.partial('partial.txt')}#

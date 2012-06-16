@@ -122,9 +122,9 @@ vows.describe(basename).addBatch({
                 assertValidationTypeContext('VALID'),
             "Testing something string here. Something Something darkside {}":
                 assertValidationTypeContext('VALID'),
-            "Testing something string here. {build{?test}} ok {build{?}} {ta ":
+            "Testing something string here. {?test} ok {?} {ta ":
                 assertValidationTypeContext('VALID'),
-            "Testing something string here. {build{?test}} ok {build{?}} {{{tag ":
+            "Testing something string here. {?test} ok {build{?} {{{tag ":
                 assertValidationTypeContext('VALID')
         }
     }
