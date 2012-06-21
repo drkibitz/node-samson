@@ -7,7 +7,7 @@
     "preferGlobal": "true",
     "name": "samson",
     "description": "A very useful build step; read any number of files, process them as JavaScript templates, and save output to another destination.",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "repository": {
         "type": "git",
         "url": "git://github.com/drkibitz/node-samson.git"
@@ -20,11 +20,11 @@
         "node": ">=0.6.14"
     },
     "dependencies": {
-        "dot": "0.2.4",
-        "glob": "3.1.9",
+        "dot": "0.2.5",
+        "glob": "3.1.10",
         "mime-magic": ">=0.2.6",
         "mimeparse": ">=0.1.4",
-        "mkdirp": ">=0.3.2",
+        "mkdirp": ">=0.3.3",
         "optimist": "0.3.4"
     },
     "devDependencies": {
