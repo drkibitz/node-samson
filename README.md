@@ -42,14 +42,14 @@ One thing doT allows, is defining custom delimiters before compiling a string in
 
 A quick look at these settings:
 - html
-    - tag start `<!--{build{`
-    - tag end `}build}-->`
+    - tag start `<!--{`
+    - tag end `}-->`
 - js, css, php
-    - tag start `/*{build{`
-    - tag end `}build}*/`
+    - tag start `/*{`
+    - tag end `}*/`
 - txt (the most common and default format)
-    - tag start `#{build{`
-    - tag end `}build}#`
+    - tag start `#{`
+    - tag end `}#`
 
 A more detailed view of these settings can be found here http://drkibitz.github.com/node-samson/Template.settingsByType.html
 
@@ -58,9 +58,9 @@ A more detailed view of these settings can be found here http://drkibitz.github.
 Take a look at the following example in `my-file.js`, that is not processed with Samson:
 
     /* start */
-    /*{build{?argv.target !== 'release'}build}*/
+    /*{?argv.target !== 'release'}*/
     var DEBUG = true;
-    /*{build{?}build}*/
+    /*{?}*/
     /* end */
 
 Process with Samson as `samson my-file.js` outputs:
@@ -84,7 +84,7 @@ Notice the `argv` member accessible in the doT template. This object contains al
 
 Just as within doT, the `def` object is special. Once a member property is set, it may not be changed. There is one `def` object defined for each file, and one file's template may not access another file's `def`.
 
-Additionally but not limited to, enumerables set within `def` are passed directly to the template's runtime function as arguments. What this means is `/*{build{#def.FILE}build}*/`, may also be accessed as `/*{build{=FILE}build}*/`
+Additionally but not limited to, enumerables set within `def` are passed directly to the template's runtime function as arguments. What this means is `/*{#def.FILE}*/`, may also be accessed as `/*{=FILE}*/`
 
 For a more detailed view of the defailt members of `def`, please visit http://drkibitz.github.com/node-samson/ResourceProcessor.def.html
 
