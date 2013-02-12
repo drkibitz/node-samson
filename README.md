@@ -20,6 +20,15 @@ Samson's functionality can be summarized in 3 steps:
     - If a file's mimeType is not a processable type, then the data is simply piped through without processing
 3. Write the processed or piped data to a new location on the file system
 
+Include samson in your own module:
+
+   var samson = require('samson');
+   samson.run(['source/dir/**/*'], {
+        copyUnknown : true,
+        outputDir   : 'build/dir',
+        recursive   : true
+    });
+
 ### doT
 
 Sounds pretty simple right?

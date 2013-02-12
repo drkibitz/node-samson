@@ -23,16 +23,17 @@ Providing either "input-dir" or "output-dir" with empty
 values results in the current working directory.
 
 Options:
-  -h, --help        You are looking at it.                    [boolean]
-  --manifest        Output list of files in "output-dir".     [boolean]
-  --overwrite       Allow "output-dir" to equal "input-dir".  [boolean]
-  --simulate        Run without any filesystem changes.       [boolean]
-  -i, --input-dir   Input directory.
-  -o, --output-dir  Output directory.
-  -q, --quiet       Suppress all status related output.       [boolean]
-  -R, --recursive   Matches files recursively.                [boolean]
-  -v, --version     Output version information.               [boolean]
-  -V, --verbose     Output progress information.              [boolean]
+  -h, --help          You are looking at it.                    [boolean]
+  --manifest          Output list of files in "output-dir".     [string]
+  --overwrite         Allow "output-dir" to equal "input-dir".  [boolean]
+  -c, --copy-unknown  Copy files with an unmatched mime-type.   [boolean]
+  -i, --input-dir     Input directory.
+  -o, --output-dir    Output directory.
+  -q, --quiet         Suppress all status related output.       [boolean]
+  -R, --recursive     Matches files recursively.                [boolean]
+  -s, --simulate      Run without any filesystem changes        [boolean]
+  -v, --version       Output version information.               [boolean]
+  -V, --verbose       Output progress information.              [boolean]
 </pre>
  * @module bin
  * @author <a href="mailto:drkibitz@gmail.com">Dr. Kibitz</a>
@@ -75,8 +76,8 @@ if (process.mainModule !== module) {
                 .describe('manifest', 'Output list of files in "output-dir".')
             .boolean('overwrite')
                 .describe('overwrite', 'Allow "output-dir" to equal "input-dir".')
-            .boolean('simulate')
-                .describe('simulate', 'Run without any filesystem changes')
+            .boolean('c').alias('c', 'copy-unknown')
+                .describe('c', 'Copy files with an unmatched mime-type.')
             // [todo] Research how to best implement this functionality.
             // Have not yet started, but this is a reminder that it needs it.
             /*.string('ignore')
@@ -89,6 +90,8 @@ if (process.mainModule !== module) {
                 .describe('q', 'Suppress all status related output.')
             .boolean('R').alias('R', 'recursive')
                 .describe('R', 'Matches files recursively.')
+            .boolean('s').alias('s', 'simulate')
+                .describe('s', 'Run without any filesystem changes')
             .boolean('v').alias('v', 'version')
                 .describe('v', 'Output version information.')
             .boolean('V').alias('V', 'verbose')
@@ -143,11 +146,12 @@ if (process.mainModule !== module) {
                     this.reset();
                 })
                 .run((argv.i ? null : argv._), {
-                    inputDir  : argv.i,
-                    outputDir : argv.o,
-                    overwrite : argv.overwrite,
-                    manifest  : argv.manifest,
-                    recursive : argv.R,
+                    copyUnknown : argv.c,
+                    inputDir    : argv.i,
+                    outputDir   : argv.o,
+                    overwrite   : argv.overwrite,
+                    manifest    : argv.manifest,
+                    recursive   : argv.R
                 })
                 // Add listener after invoking run
                 .on(Samson.event.END, function onEnd(error) {
