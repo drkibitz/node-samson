@@ -17,22 +17,6 @@ var vows = require('vows'),
 /**
  * @private
  */
-function assertTopicPropertyContext(value, toString) {
-    value = toString ? value.toString() : value;
-    var context = {
-        topic: function (topic) {
-            return topic[this.context.name];
-        }
-    }
-    context["is " + value] = function (topic) {
-        assert.strictEqual(toString ? topic.toString() : topic, value);
-    };
-    return context;
-}
-
-/**
- * @private
- */
 function handleEvent(processor, eventType, stream, asyncChunk) {
     switch (eventType) {
     // When ReadStream is created
@@ -63,19 +47,24 @@ function handleEvent(processor, eventType, stream, asyncChunk) {
  */
 vows.describe(basename).addBatch({
     "processor": {
-        topic: new ResourceProcessor(),
-        "instanceof ResourceProcessor": function (processor) {
-            assert.strictEqual(processor instanceof ResourceProcessor, true);
-        },
-        "property": {
-            // proto
-            "currentFileIndex":
-                assertTopicPropertyContext(0),
-            "date":
-                assertTopicPropertyContext(new Date(), true)
+        "new": {
+            topic: new ResourceProcessor(),
+            "instanceof ResourceProcessor": function (processor) {
+                assert.strictEqual(processor instanceof ResourceProcessor, true);
+            },
+            "property": {
+                // proto
+                "currentFileIndex is 0": function (topic) {
+                    assert.strictEqual(topic.currentFileIndex, 0);
+                },
+                "date is instanceof Date": function (topic) {
+                    assert.strictEqual(topic.date instanceof Date, true);
+                }
+            },
         },
         "apply": {
-            topic: function (processor) {
+            topic: function () {
+                processor = new ResourceProcessor();
                 reader
                     .on(ResourceReader.event.READ_STREAM_START,
                         handleEvent.bind(this, processor, ResourceReader.event.READ_STREAM_START))
@@ -92,10 +81,10 @@ vows.describe(basename).addBatch({
                 assert.isNotEmpty(asyncProcessed);
             },
             "syncProcessed.length is 4397890": function (processor, asyncProcessed, syncProcessed) {
-                assert.strictEqual(syncProcessed.length, 4397890);
+                assert.strictEqual(syncProcessed.length, 3716066);
             },
             "asyncProcessed.length is 4397890": function (processor, asyncProcessed, syncProcessed) {
-                assert.strictEqual(asyncProcessed.length, 4397890);
+                assert.strictEqual(asyncProcessed.length, 3716066);
             },
             "asyncProcessed chunks equal syncProcessed chunks": function (processor, asyncProcessed, syncProcessed, chunks) {
                 chunks.forEach(function(chunk) {

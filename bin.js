@@ -5,30 +5,31 @@
 <pre>
 Usage:
 
-  samson pattern [pattern...]
-  samson -i [directory]
-  samson pattern [pattern...] -o [directory]
-  samson -i [directory] -o [directory]
+  bin.js pattern [pattern...]
+  bin.js -i [directory]
+  bin.js pattern [pattern...] -o [directory]
+  bin.js -i [directory] -o [directory]
 
-All reading and writing occurs asynchronously, and in the
-order matched with glob. Only files of the proper type are
-processed before writing, other files are simply copied.
+Operations are asynchronous, and in order of the glob match.
+Only files of the proper type are processed before writing,
+other files are simply copied.
 
-Script arguments are each matched with glob, but ignored if
-the "input-dir" option is used. The "output-dir" option is
-the destination for output. Without this option, all output
-is sent directly to process.stdout in the order of the input.
+Script arguments are also globbed, but ignored if "input-dir"
+option is provided. Providing "output-dir" specifies a
+destination directory for output. Without it, output is
+passed to process.stdout() and in order of input.
 
-Providing the options of either "input-dir" or "output-dir"
-with an empty value results in the value of process.cwd().
+Providing either "input-dir" or "output-dir" with empty
+values results in the current working directory.
 
 Options:
   -h, --help        You are looking at it.                    [boolean]
   --manifest        Output list of files in "output-dir".     [boolean]
   --overwrite       Allow "output-dir" to equal "input-dir".  [boolean]
+  --simulate        Run without any filesystem changes.       [boolean]
   -i, --input-dir   Input directory.
   -o, --output-dir  Output directory.
-  -q, --quiet       Suppress all status output.               [boolean]
+  -q, --quiet       Suppress all status related output.       [boolean]
   -R, --recursive   Matches files recursively.                [boolean]
   -v, --version     Output version information.               [boolean]
   -V, --verbose     Output progress information.              [boolean]
@@ -53,26 +54,29 @@ if (process.mainModule !== module) {
     var Samson = samson.Samson,
         basename = path.basename(process.argv[1]),
         argv = optimist
-            .usage('Usage:\n\n' +
-               '  ' + basename + ' pattern [pattern...]\n' +
-               '  ' + basename + ' -i [directory]\n' +
-               '  ' + basename + ' pattern [pattern...] -o [directory]\n' +
-               '  ' + basename + ' -i [directory] -o [directory]\n\n' +
-               'All reading and writing occurs asynchronously, and in the\n' +
-               'order matched with glob. Only files of the proper type are\n' +
-               'processed before writing, other files are simply copied.\n\n' +
-               'Script arguments are each matched with glob, but ignored if\n' +
-               'the "input-dir" option is used. The "output-dir" option is\n' +
-               'the destination for output. Without this option, all output\n' +
-               'is sent directly to process.stdout in the order of the input.\n\n' +
-               'Providing the options of either "input-dir" or "output-dir"\n' +
-               'with an empty value results in the value of process.cwd().')
+            .usage(
+                'Usage:\n\n' +
+                '  ' + basename + ' pattern [pattern...]\n' +
+                '  ' + basename + ' -i [directory]\n' +
+                '  ' + basename + ' pattern [pattern...] -o [directory]\n' +
+                '  ' + basename + ' -i [directory] -o [directory]\n\n' +
+                'Operations are asynchronous, and in order of the glob match.\n' +
+                'Only files of the proper type are processed before writing,\n' +
+                'other files are simply copied.\n\n' +
+                'Script arguments are also globbed, but ignored if "input-dir"\n' +
+                'option is provided. Providing "output-dir" specifies a\n' +
+                'destination directory for output. Without it, output is\n' +
+                'passed to process.stdout() and in order of input.\n\n' +
+                'Providing either "input-dir" or "output-dir" with empty\n' +
+                'values results in the current working directory.')
             .boolean('h').alias('h', 'help')
                 .describe('h', 'You are looking at it.')
-            .boolean('manifest')
+            .string('manifest')
                 .describe('manifest', 'Output list of files in "output-dir".')
             .boolean('overwrite')
                 .describe('overwrite', 'Allow "output-dir" to equal "input-dir".')
+            .boolean('simulate')
+                .describe('simulate', 'Run without any filesystem changes')
             // [todo] Research how to best implement this functionality.
             // Have not yet started, but this is a reminder that it needs it.
             /*.string('ignore')
@@ -100,7 +104,7 @@ if (process.mainModule !== module) {
     // Check for version option
     } else if (argv.v) {
 
-        console.log(Samson.getVersion());
+        console.log(samson.package.version);
         process.exit(0);
 
     // Really try to run it
@@ -108,44 +112,56 @@ if (process.mainModule !== module) {
         try {
             // Listeners for status related and verbose output
             if (!argv.q && argv.V) {
-                samson
+                /*samson
                     .on(Samson.event.READ_START, function onReadStart(file) {
-                        console.log('Read(start):', path.relative(process.cwd(), file));
+                        console.log(new Date() + ' Read(start): ' +  path.relative(process.cwd(), file));
                     })
                     .on(Samson.event.READ, function onRead(file) {
-                        console.log('Read(data):', path.relative(process.cwd(), file));
+                        console.log(new Date() + ' Read(data): ' + path.relative(process.cwd(), file));
                     })
                     .on(Samson.event.READ_END, function onReadEnd(file) {
-                        console.log('Read(end):', path.relative(process.cwd(), file));
+                        console.log(new Date() + ' Read(end): ' + path.relative(process.cwd(), file));
                     })
                     .on(Samson.event.WRITE_START, function onWriteStart(file) {
-                        console.log('Write(start):', path.relative(process.cwd(), file));
+                        console.log(new Date() + ' Write(start): ' + path.relative(process.cwd(), file));
                     })
                     .on(Samson.event.WRITE, function onWrite(file, validationCode) {
-                        console.log('Write(' + validationCode + '):', path.relative(process.cwd(), file));
+                        console.log(new Date() + ' Write(' + validationCode + '): ' + path.relative(process.cwd(), file));
                     })
                     .on(Samson.event.WRITE_END, function onWriteEnd(file) {
-                        console.log('Write(end):', path.relative(process.cwd(), file));
-                    });
+                        console.log(new Date() + ' Write(end): ' + path.relative(process.cwd(), file));
+                    });*/
+                samson.createLogger(process.stdout).on();
             }
 
             // Setup and run
             samson.def = {argv : argv};
-            samson.manifest = argv.manifest;
-            samson.overwrite = argv.overwrite;
+            samson.writer.simulate = argv.simulate;
             samson
-                .on('error', function onError(error) {
+                .on(Samson.event.ERROR, function onError(error) {
                     !argv.q && console.error(error.toString());
-                    process.exit(error.hasOwnProperty('code') ? error.code : 1);
+                    this.reset();
                 })
-                .on('end', function onEnd(file) {
-                    !argv.q && console.log('\nCompleted successfully.\n',
-                        'files: ' + (this.processor.currentFileIndex) + '\n',
-                        'elapsed(ms): ' + (Date.now() - this.processor.date.valueOf())
-                    );
+                .run((argv.i ? null : argv._), {
+                    inputDir  : argv.i,
+                    outputDir : argv.o,
+                    overwrite : argv.overwrite,
+                    manifest  : argv.manifest,
+                    recursive : argv.R,
+                })
+                // Add listener after invoking run
+                .on(Samson.event.END, function onEnd(error) {
+                    if (error) {
+                        !argv.q && console.error(error.toString());
+                        process.exit(error.code || 1);
+                    } else {
+                        !argv.q && console.log('\nCompleted successfully.\n',
+                            'files: ' + (this.processor.currentFileIndex) + '\n',
+                            'elapsed(ms): ' + (Date.now() - this.processor.date.valueOf())
+                        );
+                    }
                     process.exit(0);
-                })
-                .run((argv.i ? null : argv._), argv.i, argv.o, argv.R);
+                });
 
         // Handle errors
         } catch (error) {
@@ -156,12 +172,20 @@ if (process.mainModule !== module) {
                               "  Please use the 'overwrite' option to ignore this error.");
                 break;
             case Samson.errorCode.EMPTY_PATTERNS:
+                console.log(
+                    samson.package.name + ':\n' +
+                    samson.package.description + '\n\n' +
+                    '  Version  : ' + samson.package.version + '\n' +
+                    '  Author   : ' + samson.package.author.name + ' <' + samson.package.author.email + '>\n' +
+                    '  License  : ' + samson.package.licenses[0].url + '\n' +
+                    '  Requires : node ' + samson.package.engines.node + '\n'
+                );
                 optimist.showHelp();
                 break;
             default:
                 console.error(error.toString());
             }
-            process.exit(error.hasOwnProperty('code') ? error.code : 1);
+            process.exit(error.code || 1);
         }
     }
 }(

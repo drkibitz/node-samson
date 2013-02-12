@@ -13,22 +13,6 @@ var vows = require('vows'),
 /**
  * @private
  */
-function assertTopicPropertyContext(value, toString) {
-    value = toString ? value.toString() : value;
-    var context = {
-        topic: function (topic) {
-            return topic[this.context.name];
-        }
-    }
-    context["is " + value] = function (topic) {
-        assert.strictEqual(toString ? topic.toString() : topic, value);
-    };
-    return context;
-}
-
-/**
- * @private
- */
 function handleEvent(reader, eventType, stream, asyncChunk) {
     switch (eventType) {
     // When ReadStream is created
@@ -59,25 +43,32 @@ function handleEvent(reader, eventType, stream, asyncChunk) {
  */
 vows.describe(basename).addBatch({
     "reader": {
-        topic: new ResourceReader(),
-        "instanceof ResourceReader": function (reader) {
-            assert.strictEqual(reader instanceof ResourceReader, true);
-        },
-        "property": {
-            // proto
-            "maxNumOfGlobs":
-                assertTopicPropertyContext(8),
-            "maxNumOfStreams":
-                assertTopicPropertyContext(4),
-            "numOfGlobs":
-                assertTopicPropertyContext(0),
-            "numOfStreams":
-                assertTopicPropertyContext(0),
-            "recursive":
-                assertTopicPropertyContext(false)
+        "new": {
+            topic: new ResourceReader(),
+            "instanceof ResourceReader": function (reader) {
+                assert.strictEqual(reader instanceof ResourceReader, true);
+            },
+            "properties": {
+                "maxNumOfGlobs is 8": function (topic) {
+                    assert.strictEqual(topic.maxNumOfGlobs, 8);
+                },
+                "maxNumOfStreams is 4": function (topic) {
+                    assert.strictEqual(topic.maxNumOfStreams, 4);
+                },
+                "numOfGlobs is 0": function (topic) {
+                    assert.strictEqual(topic.numOfGlobs, 0);
+                },
+                "numOfStreams is 0": function (topic) {
+                    assert.strictEqual(topic.numOfStreams, 0);
+                },
+                "recursive is false": function (topic) {
+                    assert.strictEqual(topic.recursive, false);
+                },
+            }
         },
         "read": {
-            topic: function (reader) {
+            topic: function () {
+                reader = new ResourceReader();
                 reader
                     .on(ResourceReader.event.READ_STREAM_START,
                         handleEvent.bind(this, reader, ResourceReader.event.READ_STREAM_START))
@@ -93,11 +84,11 @@ vows.describe(basename).addBatch({
             "asyncRaw is not empty": function (reader, asyncRaw, syncRaw) {
                 assert.isNotEmpty(asyncRaw);
             },
-            "syncRaw.length is 3153057": function (reader, asyncRaw, syncRaw) {
-                assert.strictEqual(syncRaw.length, 3008913);
+            "syncRaw.length is 2937985": function (reader, asyncRaw, syncRaw) {
+                assert.strictEqual(syncRaw.length, 2937985);
             },
-            "asyncRaw.length is 3153057": function (reader, asyncRaw, syncRaw) {
-                assert.strictEqual(asyncRaw.length, 3008913);
+            "asyncRaw.length is 2937985": function (reader, asyncRaw, syncRaw) {
+                assert.strictEqual(asyncRaw.length, 2937985);
             },
             "async chunks equal sync chunks": function (reader, asyncRaw, syncRaw, chunks) {
                 chunks.forEach(function(chunk) {
