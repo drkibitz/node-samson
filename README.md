@@ -22,8 +22,8 @@ Samson's functionality can be summarized in 3 steps:
 
 Include samson in your own module:
 
-   var samson = require('samson');
-   samson.run(['source/dir/**/*'], {
+    var samson = require('samson');
+    samson.run(['source/dir/**/*'], {
         copyUnknown : true,
         outputDir   : 'build/dir',
         recursive   : true
