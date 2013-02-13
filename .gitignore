@@ -3,6 +3,7 @@
 
 # REPO SPECIFIC
 ######################
+node_modules/*
 
 # Development env files
 ######################
