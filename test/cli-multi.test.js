@@ -58,12 +58,12 @@ vows.describe(basename).addBatch({
                 assert.isString(out);
                 assert.isNotEmpty(out);
             },
-            "stdout contains `Completed successfully.\\n`": function (code) {
-                assert.strictEqual(out.indexOf('Completed successfully.\n') > -1, true);
+            "stdout contains 'Completed successfully.'": function (code) {
+                assert.strictEqual(out.indexOf('Completed successfully.') > -1, true);
             },
-            "stdout `files: #\\n` matches": {
+            "stdout 'files: #' matches": {
                 topic: function () {
-                    return out.match(/\nCompleted successfully.\n files: ([0-9]+)\n elapsed\(ms\)\: [0-9]+\n$/);
+                    return out.match(/Completed successfully.[\S\s]+files: ([0-9]+)[\S\s]+elapsed\(ms\)\: [0-9]+[\S\s]+$/);
                 },
                 "is not null": function (matches) {
                     assert.isNotNull(matches);
@@ -79,21 +79,21 @@ vows.describe(basename).addBatch({
                 topic: function () {
                     fs.stat(path.join(outputDir, testOutPath), this.callback);
                 },
-                'after a successful `fs.stat`': {
+                "after a successful 'fs.stat'": {
                     topic: function (stat) {
                         fs.open(path.join(outputDir, testOutPath), "r", stat.mode, this.callback);
                     },
-                    'after a successful `fs.open`': {
+                    "after a successful 'fs.open'": {
                         topic: function (fd, stat) {
                             fs.read(fd, stat.size, 0, "utf8", this.callback);
                         },
-                        'we can `fs.read` to get the file contents': function (data) {
+                        "we can 'fs.read' to get the file contents": function (data) {
                             assert.isString(data);
                         },
-                        // '`fs.read` contents length is 4901250': function (data) {
+                        // "'fs.read' contents length is 4901250": function (data) {
                         //  assert.strictEqual(data.length, 4901250);
                         // },
-                        'remove outputDir': function (data) {
+                        "remove outputDir": function (data) {
                             spawn('rm', ['-fR', outputDir]);
                         }
                     }

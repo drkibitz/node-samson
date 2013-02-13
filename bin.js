@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/*global process, require*/
+/*global process, require, console*/
 /**
  * Command line script to invoke functionality of {@link module:node-samson}.
 <pre>
@@ -24,6 +24,7 @@ values results in the current working directory.
 
 Options:
   -h, --help          You are looking at it.                    [boolean]
+  -d, --def           KEY=value pair to set on def namespace.   [string]
   --manifest          Output list of files in "output-dir".     [string]
   --overwrite         Allow "output-dir" to equal "input-dir".  [boolean]
   -c, --copy-unknown  Copy files with an unmatched mime-type.   [boolean]
@@ -44,34 +45,32 @@ Options:
  * @requires node-samson/lib/main
  * @since 1.0
  */
-if (process.mainModule !== module) {
-    console.error('Samson is meant to be run as the mainModule!');
-    process.exit(1);
-}
-
-(function (path, fs, optimist, samson) {
+(function (os, path, fs, optimist, samson) {
     "use strict";
 
     var Samson = samson.Samson,
+        EOL = os.EOL,
         basename = path.basename(process.argv[1]),
         argv = optimist
             .usage(
-                'Usage:\n\n' +
-                '  ' + basename + ' pattern [pattern...]\n' +
-                '  ' + basename + ' -i [directory]\n' +
-                '  ' + basename + ' pattern [pattern...] -o [directory]\n' +
-                '  ' + basename + ' -i [directory] -o [directory]\n\n' +
-                'Operations are asynchronous, and in order of the glob match.\n' +
-                'Only files of the proper type are processed before writing,\n' +
-                'other files are simply copied.\n\n' +
-                'Script arguments are also globbed, but ignored if "input-dir"\n' +
-                'option is provided. Providing "output-dir" specifies a\n' +
-                'destination directory for output. Without it, output is\n' +
-                'passed to process.stdout() and in order of input.\n\n' +
-                'Providing either "input-dir" or "output-dir" with empty\n' +
+                'Usage:' + EOL + EOL +
+                '  ' + basename + ' pattern [pattern...]' + EOL +
+                '  ' + basename + ' -i [directory]' + EOL +
+                '  ' + basename + ' pattern [pattern...] -o [directory]' + EOL +
+                '  ' + basename + ' -i [directory] -o [directory]' + EOL + EOL +
+                'Operations are asynchronous, and in order of the glob match.' + EOL +
+                'Only files of the proper type are processed before writing,' + EOL +
+                'other files are simply copied.' + EOL + EOL +
+                'Script arguments are also globbed, but ignored if "input-dir"' + EOL +
+                'option is provided. Providing "output-dir" specifies a' + EOL +
+                'destination directory for output. Without it, output is' + EOL +
+                'passed to process.stdout() and in order of input.' + EOL + EOL +
+                'Providing either "input-dir" or "output-dir" with empty' + EOL +
                 'values results in the current working directory.')
             .boolean('h').alias('h', 'help')
                 .describe('h', 'You are looking at it.')
+            .string('d').alias('d', 'def')
+                .describe('d', 'KEY=value pair to set on def namespace.')
             .string('manifest')
                 .describe('manifest', 'Output list of files in "output-dir".')
             .boolean('overwrite')
@@ -107,7 +106,7 @@ if (process.mainModule !== module) {
     // Check for version option
     } else if (argv.v) {
 
-        console.log(samson.package.version);
+        console.log(samson.packageInfo.version);
         process.exit(0);
 
     // Really try to run it
@@ -138,12 +137,55 @@ if (process.mainModule !== module) {
             }
 
             // Setup and run
+
+            // Create def namespace that will override defaults already in def
+            // Defaults are process.env members, as well as stuff defined in ResourceProcessor.
             samson.def = {argv : argv};
+            // If we have 1 or more arguments def pairs, parse them and set on the def namespace.
+            // Basically, if somebody wants to override something, let them.
+            // This allows for things assignments:
+            // -d TARGET=browser -d VENDOR=WebKit
+            // This allows for unassigned flags whose values default to true:
+            // -d DEBUG -d DEV
+            // This allows for chaining assignments:
+            // -d TARGET=VENDOR=CSS_PREFIX=WebKit -d FOO=BAR=baz
+            if (argv.d) {
+                Array.prototype.concat(argv.d).filter(function (pair) {
+                    return 'string' === typeof pair && pair.length;
+                }).forEach(function (pair) {
+                    var split = pair.split('='), v, k, i;
+                    if (split.length === 1) {
+                        k = split[0];
+                        if (k.length) samson.def[k] = true;
+                    } else {
+                        i = split.length;
+                        v = split[--i];
+                        while (i--) {
+                            k = split[i];
+                            if (k.length) samson.def[k] = v;
+                        }
+                    }
+                });
+            }
+
             samson.writer.simulate = argv.simulate;
             samson
                 .on(Samson.event.ERROR, function onError(error) {
-                    !argv.q && console.error(error.toString());
+                    if (!argv.q) console.error(error.toString());
                     this.reset();
+                })
+                .on(Samson.event.END, function onEnd(error) {
+                    if (error) {
+                        if (!argv.q) console.error(error.toString());
+                        process.exit(error.code || 1);
+                    } else if (!argv.q) {
+                        console.log(
+                            'Completed successfully.' + EOL +
+                            '  files: ' + (this.processor.currentFileIndex) + EOL +
+                            '  elapsed(ms): ' + (Date.now() - this.processor.date.valueOf())
+                        );
+                    }
+                    process.exit(0);
                 })
                 .run((argv.i ? null : argv._), {
                     copyUnknown : argv.c,
@@ -152,37 +194,26 @@ if (process.mainModule !== module) {
                     overwrite   : argv.overwrite,
                     manifest    : argv.manifest,
                     recursive   : argv.R
-                })
-                // Add listener after invoking run
-                .on(Samson.event.END, function onEnd(error) {
-                    if (error) {
-                        !argv.q && console.error(error.toString());
-                        process.exit(error.code || 1);
-                    } else {
-                        !argv.q && console.log('\nCompleted successfully.\n',
-                            'files: ' + (this.processor.currentFileIndex) + '\n',
-                            'elapsed(ms): ' + (Date.now() - this.processor.date.valueOf())
-                        );
-                    }
-                    process.exit(0);
                 });
 
         // Handle errors
         } catch (error) {
             switch (error.message) {
             case Samson.errorCode.UNSAFE_OUTPUT:
-                console.error("Error: Input directory may be the same as output directory!\n\n" +
-                              "  Files may be overwritten by output.\n" +
-                              "  Please use the 'overwrite' option to ignore this error.");
+                console.error(
+                    "Error: Input directory may be the same as output directory!" + EOL + EOL +
+                    "  Files may be overwritten by output." + EOL +
+                    "  Please use the 'overwrite' option to ignore this error."
+                );
                 break;
             case Samson.errorCode.EMPTY_PATTERNS:
                 console.log(
-                    samson.package.name + ':\n' +
-                    samson.package.description + '\n\n' +
-                    '  Version  : ' + samson.package.version + '\n' +
-                    '  Author   : ' + samson.package.author.name + ' <' + samson.package.author.email + '>\n' +
-                    '  License  : ' + samson.package.licenses[0].url + '\n' +
-                    '  Requires : node ' + samson.package.engines.node + '\n'
+                    samson.packageInfo.name + ':' + EOL +
+                    samson.packageInfo.description + EOL + EOL +
+                    '  Version  : ' + samson.packageInfo.version + EOL +
+                    '  Author   : ' + samson.packageInfo.author.name + ' <' + samson.packageInfo.author.email + '>' + EOL +
+                    '  License  : ' + samson.packageInfo.licenses[0].url + EOL +
+                    '  Requires : node ' + samson.packageInfo.engines.node + EOL
                 );
                 optimist.showHelp();
                 break;
@@ -193,6 +224,7 @@ if (process.mainModule !== module) {
         }
     }
 }(
+    require('os'),
     require('path'),
     require('fs'),
     require('optimist'),

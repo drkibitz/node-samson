@@ -22,12 +22,12 @@ function handleEvent(processor, eventType, stream, asyncChunk) {
     // When ReadStream is created
     case ResourceReader.event.READ_STREAM_START:
         asyncProcessed = '';
-        syncProcessed = processor.apply(stream.mimeType, stream.path, fs.readFileSync(stream.path).toString(), def);
+        syncProcessed = processor.processFile(stream.mimeType, stream.path, fs.readFileSync(stream.path).toString(), def);
         break;
 
     // When ReadStream reads
     case ResourceReader.event.READ_STREAM_DATA:
-        asyncChunk = processor.apply(stream.mimeType, stream.path, asyncChunk.toString(), def);
+        asyncChunk = processor.processFile(stream.mimeType, stream.path, asyncChunk.toString(), def);
         chunks.push({
             asyncProcessed: asyncChunk,
             syncProcessed: syncProcessed.substr(asyncProcessed.length, asyncChunk.length)

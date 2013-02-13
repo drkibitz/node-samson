@@ -28,7 +28,7 @@ function assertTopicPropertyContext(value, toString) {
 function assertAppliedStringContext(value) {
     var context = {
         topic: function (template) {
-            return template.apply(this.context.name);
+            return template.process(this.context.name);
         }
     };
     context["is " + value] = function (applied) {
@@ -60,7 +60,7 @@ vows.describe(basename).addBatch({
                     assertTopicPropertyContext('}#')
             }
         },
-        "apply": {
+        "process": {
             topic: function (template) {
                 template.def = {
                     DEBUG: false,
