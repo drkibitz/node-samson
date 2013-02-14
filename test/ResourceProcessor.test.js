@@ -8,6 +8,7 @@ var vows = require('vows'),
     chunks = [],
     asyncProcessed,
     syncProcessed,
+    event = require('../lib/event'),
     ResourceReader = require('../lib/ResourceReader'),
     ResourceProcessor = require('../lib/ResourceProcessor'),
     Template = require('../lib/Template'),
@@ -20,13 +21,13 @@ var vows = require('vows'),
 function handleEvent(processor, eventType, stream, asyncChunk) {
     switch (eventType) {
     // When ReadStream is created
-    case ResourceReader.event.READ_STREAM_START:
+    case event.READER_STREAM_START:
         asyncProcessed = '';
         syncProcessed = processor.processFile(stream.mimeType, stream.path, fs.readFileSync(stream.path).toString(), def);
         break;
 
     // When ReadStream reads
-    case ResourceReader.event.READ_STREAM_DATA:
+    case event.READER_STREAM_DATA:
         asyncChunk = processor.processFile(stream.mimeType, stream.path, asyncChunk.toString(), def);
         chunks.push({
             asyncProcessed: asyncChunk,
@@ -36,7 +37,7 @@ function handleEvent(processor, eventType, stream, asyncChunk) {
         break;
 
     // When ReadStream ends
-    case ResourceReader.event.READ_STREAM_END:
+    case event.READER_STREAM_END:
         this.callback(processor, asyncProcessed, syncProcessed, chunks);
         break;
     }
@@ -66,12 +67,12 @@ vows.describe(basename).addBatch({
             topic: function () {
                 processor = new ResourceProcessor();
                 reader
-                    .on(ResourceReader.event.READ_STREAM_START,
-                        handleEvent.bind(this, processor, ResourceReader.event.READ_STREAM_START))
-                    .on(ResourceReader.event.READ_STREAM_DATA,
-                        handleEvent.bind(this, processor, ResourceReader.event.READ_STREAM_DATA))
-                    .on(ResourceReader.event.READ_STREAM_END,
-                        handleEvent.bind(this, processor, ResourceReader.event.READ_STREAM_END))
+                    .on(event.READER_STREAM_START,
+                        handleEvent.bind(this, processor, event.READER_STREAM_START))
+                    .on(event.READER_STREAM_DATA,
+                        handleEvent.bind(this, processor, event.READER_STREAM_DATA))
+                    .on(event.READER_STREAM_END,
+                        handleEvent.bind(this, processor, event.READER_STREAM_END))
                     .read([path.join(__dirname, 'test-in', 'largefile2.txt')]);
             },
             "syncProcessed is not empty": function (processor, asyncProcessed, syncProcessed) {

@@ -112,32 +112,6 @@ Options:
     // Really try to run it
     } else {
         try {
-            // Listeners for status related and verbose output
-            if (!argv.q && argv.V) {
-                /*samson
-                    .on(Samson.event.READ_START, function onReadStart(file) {
-                        console.log(new Date() + ' Read(start): ' +  path.relative(process.cwd(), file));
-                    })
-                    .on(Samson.event.READ, function onRead(file) {
-                        console.log(new Date() + ' Read(data): ' + path.relative(process.cwd(), file));
-                    })
-                    .on(Samson.event.READ_END, function onReadEnd(file) {
-                        console.log(new Date() + ' Read(end): ' + path.relative(process.cwd(), file));
-                    })
-                    .on(Samson.event.WRITE_START, function onWriteStart(file) {
-                        console.log(new Date() + ' Write(start): ' + path.relative(process.cwd(), file));
-                    })
-                    .on(Samson.event.WRITE, function onWrite(file, validationCode) {
-                        console.log(new Date() + ' Write(' + validationCode + '): ' + path.relative(process.cwd(), file));
-                    })
-                    .on(Samson.event.WRITE_END, function onWriteEnd(file) {
-                        console.log(new Date() + ' Write(end): ' + path.relative(process.cwd(), file));
-                    });*/
-                samson.createLogger(process.stdout).on();
-            }
-
-            // Setup and run
-
             // Create def namespace that will override defaults already in def
             // Defaults are process.env members, as well as stuff defined in ResourceProcessor.
             samson.def = {argv : argv};
@@ -168,7 +142,10 @@ Options:
                 });
             }
 
+            // Only simulating
             samson.writer.simulate = argv.simulate;
+            // Verbose logger
+            if (!argv.q && argv.V) samson.createLogger(process.stdout).on();
             samson
                 .on(Samson.event.ERROR, function onError(error) {
                     if (!argv.q) console.error(error.toString());

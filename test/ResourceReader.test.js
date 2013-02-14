@@ -8,6 +8,7 @@ var vows = require('vows'),
     chunks = [],
     asyncRaw,
     syncRaw,
+    event = require('../lib/event'),
     ResourceReader = require('../lib/ResourceReader');
 
 /**
@@ -16,13 +17,13 @@ var vows = require('vows'),
 function handleEvent(reader, eventType, stream, asyncChunk) {
     switch (eventType) {
     // When ReadStream is created
-    case ResourceReader.event.READ_STREAM_START:
+    case event.READER_STREAM_START:
         asyncRaw = '';
         syncRaw = fs.readFileSync(stream.path).toString();
         break;
 
     // When ReadStream reads
-    case ResourceReader.event.READ_STREAM_DATA:
+    case event.READER_STREAM_DATA:
         asyncChunk = asyncChunk.toString();
         chunks.push({
             asyncRaw: asyncChunk,
@@ -32,7 +33,7 @@ function handleEvent(reader, eventType, stream, asyncChunk) {
         break;
 
     // When ReadStream ends
-    case ResourceReader.event.READ_STREAM_END:
+    case event.READER_STREAM_END:
         this.callback(reader, asyncRaw, syncRaw, chunks);
         break;
     }
@@ -63,19 +64,19 @@ vows.describe(basename).addBatch({
                 },
                 "recursive is false": function (topic) {
                     assert.strictEqual(topic.recursive, false);
-                },
+                }
             }
         },
         "read": {
             topic: function () {
                 reader = new ResourceReader();
                 reader
-                    .on(ResourceReader.event.READ_STREAM_START,
-                        handleEvent.bind(this, reader, ResourceReader.event.READ_STREAM_START))
-                    .on(ResourceReader.event.READ_STREAM_DATA,
-                        handleEvent.bind(this, reader, ResourceReader.event.READ_STREAM_DATA))
-                    .on(ResourceReader.event.READ_STREAM_END,
-                        handleEvent.bind(this, reader, ResourceReader.event.READ_STREAM_END))
+                    .on(event.READER_STREAM_START,
+                        handleEvent.bind(this, reader, event.READER_STREAM_START))
+                    .on(event.READER_STREAM_DATA,
+                        handleEvent.bind(this, reader, event.READER_STREAM_DATA))
+                    .on(event.READER_STREAM_END,
+                        handleEvent.bind(this, reader, event.READER_STREAM_END))
                     .read([__dirname + '/test-in/largefile.txt']);
             },
             "syncRaw is not empty": function (reader, asyncRaw, syncRaw) {
