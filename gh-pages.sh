@@ -14,7 +14,7 @@ echo ${VERSION}
 
 mv ./docs/samson/${VERSION} ./docs/${VERSION}
 rm -fR ./docs/samson
-ln -sf ${VERSION} ./docs/latest
+#ln -sf ${VERSION} ./docs/latest
 
 git checkout gh-pages
 git add .
