@@ -60,7 +60,7 @@ A quick look at these settings:
     - tag start `#{`
     - tag end `}#`
 
-A more detailed view of these settings can be found here http://drkibitz.github.com/node-samson/docs/0.3.1/Template.settingsByType.html
+A more detailed view of these settings can be found here http://drkibitz.github.com/node-samson/docs/0.3.2/Template.settingsByType.html
 
 ### Example
 
@@ -95,7 +95,7 @@ Just as within doT, the `def` object is special. Once a member property is set, 
 
 Additionally but not limited to, enumerables set within `def` are passed directly to the template's runtime function as arguments. What this means is `/*{#def.FILE}*/`, may also be accessed as `/*{=FILE}*/`
 
-For a more detailed view of the defailt members of `def`, please visit http://drkibitz.github.com/node-samson/docs/0.3.1/ResourceProcessor.def.html
+For a more detailed view of the defailt members of `def`, please visit http://drkibitz.github.com/node-samson/docs/0.3.2/ResourceProcessor.def.html
 
 ### More Usage Examples
 
