@@ -128,8 +128,3 @@ Process files and directories recursively and output to file system:
 Process matched files recursively and output to file system:
 
     samson -i path/to/* -o path/to/other/directory -R
-
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/drkibitz/node-samson/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
